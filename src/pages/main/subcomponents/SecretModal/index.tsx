@@ -21,7 +21,7 @@ const SecretModal = ({ open, onClose, items, onRevealImmediate }: SecretModalPro
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
       <ModalContainer>
         <HeaderContainer>
-          <Typography variant="h6" sx={{ fontWeight: 800 }}>Painel Secreto de Revelação</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 800 }}>Painel de Revelação</Typography>
           <IconButton onClick={onClose} size="small"><CloseIcon /></IconButton>
         </HeaderContainer>
 
