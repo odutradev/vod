@@ -58,7 +58,7 @@ const GameViewer = (_props: GameViewerProps) => {
   return (
     <ViewerContainer component="section">
       <FormContainer onSubmit={handleReveal}>
-        <TextField fullWidth type="number" variant="outlined" value={inputNumber} disabled={!hasItems} onChange={(e) => setInputNumber(e.target.value)} label={hasItems ? `Digite um número` : 'Nenhum desafio disponível'} />
+        <TextField fullWidth type="number" variant="outlined" value={inputNumber} disabled={!hasItems} onChange={(e) => setInputNumber(e.target.value)} label={hasItems ? `Digite um número de 1 a ${totalItems}` : 'Nenhum desafio disponível'} />
         <Button type="submit" variant="contained" color="primary" size="large" disabled={!hasItems}>Revelar</Button>
       </FormContainer>
 

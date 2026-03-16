@@ -13,4 +13,5 @@ export interface GameStore {
   importItems: (raw: string) => void;
   exportItems: () => void;
   shuffleItems: () => void;
+  clearItems: () => void;
 }

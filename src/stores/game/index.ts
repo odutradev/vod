@@ -2,10 +2,14 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { toast } from "react-toastify";
 import { create } from "zustand";
 
-import { gameStoreDefaultValues } from "./defaultValues";
 import { GAME_CONSTANTS } from "@utils/constants/game";
+import { gameStoreDefaultValues } from "./defaultValues";
 
 import type { GameStore, GameItem } from "./types";
+
+const SUCCESS_CLEARED = "Todos os desafios foram removidos com sucesso!";
+const ERROR_NO_ITEMS = "Nenhum desafio para embaralhar.";
+const SUCCESS_SHUFFLED = "Desafios reembaralhados com sucesso!";
 
 const useGameStore = create<GameStore>()(
   persist(
@@ -55,11 +59,15 @@ const useGameStore = create<GameStore>()(
       },
       shuffleItems: () => {
         const currentItems = get().game.items;
-        if (!currentItems.length) return toast.warning("Nenhum desafio para embaralhar.");
+        if (!currentItems.length) return toast.warning(ERROR_NO_ITEMS);
         const shuffled = [...currentItems].sort(() => Math.random() - 0.5);
         const newItems: GameItem[] = shuffled.map((item, index) => ({ id: index, text: item.text }));
         set({ game: { items: newItems } });
-        toast.success("Desafios reembaralhados com sucesso!");
+        toast.success(SUCCESS_SHUFFLED);
+      },
+      clearItems: () => {
+        set({ game: { items: [] } });
+        toast.success(SUCCESS_CLEARED);
       }
     }),
     {

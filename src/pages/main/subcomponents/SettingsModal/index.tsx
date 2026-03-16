@@ -1,4 +1,4 @@
-import { Upload, Download, Close, Shuffle, DarkMode, LightMode } from '@mui/icons-material';
+import { Upload, Download, Close, Shuffle, DarkMode, LightMode, Delete } from '@mui/icons-material';
 import { Dialog, Typography, TextField, Button, IconButton, Tooltip } from '@mui/material';
 import { ChangeEvent, useRef, useState } from 'react';
 
@@ -9,8 +9,10 @@ import useGameStore from '@stores/game';
 
 import type { SettingsModalProps } from './types';
 
+const CLEAR_CONFIRM_MESSAGE = 'Tem certeza que deseja limpar todos os desafios?';
+
 const SettingsModal = ({ open, onClose }: SettingsModalProps) => {
-  const { addItems, importItems, exportItems, shuffleItems } = useGameStore();
+  const { addItems, importItems, exportItems, shuffleItems, clearItems } = useGameStore();
   const { system: { theme }, updateSystem } = useSystemStore();
   const [rawInput, setRawInput] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -43,6 +45,13 @@ const SettingsModal = ({ open, onClose }: SettingsModalProps) => {
     window.dispatchEvent(new StorageEvent('storage', { key: 'theme' }));
   };
 
+  const handleClear = () => {
+    if (window.confirm(CLEAR_CONFIRM_MESSAGE)) {
+      clearItems();
+      onClose();
+    }
+  };
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" PaperProps={{ sx: { borderRadius: 3, backgroundImage: 'none', border: 1, borderColor: 'divider', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)' } }} slotProps={{ backdrop: { sx: { backdropFilter: 'blur(4px)', backgroundColor: 'rgba(0, 0, 0, 0.4)' } } }}>
       <ContentContainer>
@@ -67,6 +76,7 @@ const SettingsModal = ({ open, onClose }: SettingsModalProps) => {
           <Button onClick={handleImportClick} startIcon={<Upload />} variant="text" color="secondary" size="small">Importar</Button>
           <Button onClick={exportItems} startIcon={<Download />} variant="text" color="secondary" size="small">Exportar</Button>
           <Button onClick={shuffleItems} startIcon={<Shuffle />} variant="text" color="secondary" size="small">Embaralhar</Button>
+          <Button onClick={handleClear} startIcon={<Delete />} variant="text" color="error" size="small">Limpar</Button>
         </ActionGroup>
         <ActionGroup>
           <Button onClick={onClose} color="secondary" variant="text">Cancelar</Button>
