@@ -52,6 +52,14 @@ const useGameStore = create<GameStore>()(
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
+      },
+      shuffleItems: () => {
+        const currentItems = get().game.items;
+        if (!currentItems.length) return toast.warning("Nenhum desafio para embaralhar.");
+        const shuffled = [...currentItems].sort(() => Math.random() - 0.5);
+        const newItems: GameItem[] = shuffled.map((item, index) => ({ id: index, text: item.text }));
+        set({ game: { items: newItems } });
+        toast.success("Desafios reembaralhados com sucesso!");
       }
     }),
     {
