@@ -14,14 +14,8 @@ export const HeaderContainer = styled(Box)({
   justifyContent: 'space-between',
 });
 
-export const FormContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(2),
-  alignItems: 'center',
-}));
-
 export const ItemsList = styled(List)(({ theme }) => ({
-  maxHeight: '300px',
+  maxHeight: '60vh',
   overflow: 'auto',
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: theme.shape.borderRadius,
