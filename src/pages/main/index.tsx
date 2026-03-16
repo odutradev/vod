@@ -2,9 +2,9 @@ import { Settings as SettingsIcon } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { useState } from 'react';
 
+import { MainContainer, Header, ContentWrapper, Title } from './styles';
 import SettingsModal from './subcomponents/SettingsModal';
 import GameViewer from './subcomponents/GameViewer';
-import { MainContainer, Header, Title } from './styles';
 
 const Main = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -15,12 +15,14 @@ const Main = () => {
   return (
     <MainContainer>
       <Header>
-        <Title variant="h4">VoD</Title>
-        <IconButton onClick={handleOpenSettings} color="primary" aria-label="Configurações">
+        <Title variant="h5">VoD</Title>
+        <IconButton onClick={handleOpenSettings} color="primary">
           <SettingsIcon />
         </IconButton>
       </Header>
-      <GameViewer />
+      <ContentWrapper>
+        <GameViewer />
+      </ContentWrapper>
       <SettingsModal open={isSettingsOpen} onClose={handleCloseSettings} />
     </MainContainer>
   );
